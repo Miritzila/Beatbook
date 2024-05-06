@@ -3,21 +3,37 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
+import { LandingPage } from "./pages/landingPage"; 
+import { Inicio } from "./pages/inicio";
+import { Perfil } from "./pages/perfil";
+
+import { Categorias } from "./pages/categorias";
+import { Eventos } from "./pages/eventos";
+import { Grupos } from "./pages/grupos";
+import { Lugares } from "./pages/lugares";
+
+import { PaginaFalsa } from "./pages/paginaFalsa";
+
+import { DetalleCategoria } from "./pages/detalleCategoria";
+import { DetalleEvento } from "./pages/detalleEvento";
+import { DetalleGrupo } from "./pages/detalleGrupo";
+import { DetalleLugar } from "./pages/detalleLugar";
+
+import { CrearEvento } from "./pages/crearEvento";
+import { CrearGrupo } from "./pages/crearGrupo";
+import { CrearLugar } from "./pages/crearLugar";
+
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
-//create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
     return (
         <div>
@@ -25,10 +41,27 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<LandingPage />} path="/" />
+                        <Route element={<Inicio />} path="/inicio" />
+                        <Route element={<Perfil />} path="/perfil" />
                         <Route element={<h1>Not found!</h1>} />
+
+                        <Route element={<Categorias />} path="/categorias" />
+                        <Route element={<Eventos />} path="/eventos" />
+                        <Route element={<Grupos />} path="/grupos" />
+                        <Route element={<Lugares />} path="/lugares" />
+
+                        <Route element={<PaginaFalsa />} path="/paginafalsa" />
+
+                        <Route element={<DetalleCategoria />} path="/categorias/:id" />
+                        <Route element={<DetalleEvento />} path="/eventos/:id" />
+                        <Route element={<DetalleGrupo />} path="/grupos/:id" />
+                        <Route element={<DetalleLugar />} path="/lugares/:id" />
+
+                        <Route element={<CrearEvento />} path="/eventos/crear" />
+                        <Route element={<CrearGrupo />} path="/grupos/crear" />
+                        <Route element={<CrearLugar />} path="/lugares/crear" />
+
                     </Routes>
                     <Footer />
                 </ScrollToTop>
