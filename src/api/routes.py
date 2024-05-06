@@ -11,7 +11,6 @@ api = Blueprint('api', __name__)
 # Allow CORS requests to this API
 CORS(api)
 
-
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -20,3 +19,20 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+# AUTENTICATION ENDPOINTS #
+
+# USER ENDPOINTS #
+
+# EVENT ENDPOINTS #
+
+# BAND ENDPOINTS #
+
+# PLACE ENDPOINTS #
+
+# MUSICAL CATEGORY ENDPOINTS #
+
+# ASSISTANCE ENDPOINTS #
+
+# REVIEW ENDPOINTS #
+

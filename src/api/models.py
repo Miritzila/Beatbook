@@ -15,6 +15,8 @@ class User(db.Model):
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
 
+    followed_bands = db.relationship('Band', secondary='user_followed_bands', back_populates='followers')
+    followed_places = db.relationship('Place', secondary='user_followed_places', back_populates='followers')
     user_categories = db.relationship('MusicalCategory', secondary='user_favorite_category', back_populates='users')
 
     def __repr__(self):
@@ -28,6 +30,13 @@ class User(db.Model):
             'username': self.username,
             'birthdate': self.birthdate,
             'description': self.description,
+            'city': self.city,
+            'profile_picture': self.profile_picture,
+            'instagram': self.instagram,
+            'tiktok': self.tiktok,
+            'followed_bands': [band.serialize() for band in self.followed_bands],
+            'followed_places': [place.serialize() for place in self.followed_places],
+            'user_categories': [category.serialize() for category in self.user_categories],
         }
 
 class Event(db.Model):
@@ -50,13 +59,15 @@ class Event(db.Model):
             'name': self.name,
             'date': self.date,
             'description': self.description,
-            'address': self.address,
             'price': self.price,
-            'pictures': self.pictures,
+            'profile_picture': self.profile_picture,
             'video': self.video,
-            'place_id': self.place_id,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
+            'place_id': self.place_id,
+            'band_id': self.band_id,
+            'assistances': [assistance.serialize() for assistance in self.assistances],
+            'reviews': [review.serialize() for review in self.reviews],
         }
 
 class Place(db.Model):
@@ -69,6 +80,7 @@ class Place(db.Model):
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
 
+    followers = db.relationship('User', secondary='user_followed_places', back_populates='followed_places')
     events = db.relationship('Event', backref='place', lazy=True)
     
     def serialize(self):
@@ -81,6 +93,8 @@ class Place(db.Model):
             'profile_picture': self.profile_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
+            'followers': [user.serialize() for user in self.followers],
+            'events': [event.serialize() for event in self.events],
         }
 
 class Band(db.Model):
@@ -91,10 +105,10 @@ class Band(db.Model):
     instagram = db.Column(db.String(120), nullable=True)
     tiktok = db.Column(db.String(120), nullable=True)
 
+    followers = db.relationship('User', secondary='user_followed_bands', back_populates='followed_bands')
     events = db.relationship('Event', backref='band', lazy=True)
     musical_categories = db.relationship('MusicalCategory', secondary='band_musical_category', back_populates='bands')
-
-    members = db.relationship('User', secondary='band_members', backref=db.backref('bands', lazy='dynamic'))
+    members = db.relationship('User', secondary='band_members', backref=db.backref('member', lazy='dynamic'))
 
     def serialize(self):
         return {
@@ -104,6 +118,10 @@ class Band(db.Model):
             'profile_picture': self.profile_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
+            'followers': [user.serialize() for user in self.followers],
+            'events': [event.serialize() for event in self.events],
+            'musical_categories': [category.serialize() for category in self.musical_categories],
+            'members': [member.serialize() for member in self.members],
         }
 
 class Assistance(db.Model):
@@ -119,6 +137,8 @@ class Assistance(db.Model):
             'id': self.id,
             'user_id': self.user_id,
             'event_id': self.event_id,
+            'user': self.user.username if self.user else '',
+            'event': self.event.name if self.event else '',
         }
 
 class Review(db.Model):
@@ -137,8 +157,8 @@ class Review(db.Model):
             'id': self.id,
             'rating': self.rating,
             'comment': self.comment,
-            'user_id': self.user_id,
-            'event_id': self.event_id,
+            'user': self.user.username if self.user else '',
+            'event': self.event.name if self.event else '',
         }
 
 class MusicalCategory(db.Model):
@@ -153,6 +173,9 @@ class MusicalCategory(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'bands': [band.serialize() for band in self.bands],
+            'users': [user.serialize() for user in self.users],
+            'events': [event.serialize() for event in self.events],
         }
 
 band_events = db.Table('band_events',
@@ -173,4 +196,14 @@ user_favorite_category = db.Table('user_favorite_category',
 band_members = db.Table('band_members',
     db.Column('band_id', db.Integer, db.ForeignKey('band.id')),
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
+)
+
+user_followed_bands = db.Table('user_followed_bands',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('band_id', db.Integer, db.ForeignKey('band.id'), primary_key=True)
+)
+
+user_followed_places = db.Table('user_followed_places',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('place_id', db.Integer, db.ForeignKey('place.id'), primary_key=True)
 )
