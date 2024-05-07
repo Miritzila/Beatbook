@@ -13,5 +13,5 @@ Its aim is to help the user find the most attractive plans for them according to
 Are you ready?
 
 
-![Logo](https://i.ibb.co/z2fyyJy/Beat-Box-Logo-horizontal-negro.png)
+![Logo](https://i.ibb.co/Yj6y9Fx/Beat-Box-Logo-vertical-blanco.png)
 
