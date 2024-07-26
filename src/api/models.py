@@ -38,6 +38,11 @@ user_friends = db.Table('user_friends',
     db.Column('friend_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
 )
 
+user_roles = db.Table('user_roles',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('role_id', db.Integer, db.ForeignKey('role.id'), primary_key=True)
+)
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_active = db.Column(db.Boolean(), nullable=False)
@@ -50,13 +55,9 @@ class User(db.Model):
     profile_picture = db.Column(db.String(300), nullable=True)
     instagram = db.Column(db.String(300), nullable=True)
     tiktok = db.Column(db.String(300), nullable=True)
-    friends = db.relationship(
-        'User', 
-        secondary=user_friends,
-        primaryjoin=id == user_friends.c.user_id,
-        secondaryjoin=id == user_friends.c.friend_id,
-        lazy='dynamic'
-    )
+
+    roles = db.relationship('Role', secondary='user_roles', back_populates='users')
+    friends = db.relationship('User', secondary=user_friends,primaryjoin=id == user_friends.c.user_id, secondaryjoin=id == user_friends.c.friend_id, lazy='dynamic')
 
     tickets = db.relationship('Ticket', backref='owner', lazy=True)
     followed_bands = db.relationship('Band', secondary='user_followed_bands', back_populates='followers')
@@ -82,7 +83,23 @@ class User(db.Model):
         'followed_bands': [band.serialize() for band in self.followed_bands],
         'followed_places': [place.serialize() for place in self.followed_places],
         'user_categories': [category.serialize() for category in self.user_categories],
+        'roles': [role.serialize() for role in self.roles],
     }
+
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.String(300), nullable=False)
+
+    users = db.relationship('User', secondary='user_roles', back_populates='roles')
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'users': [user.serialize() for user in self.users],
+        }
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
