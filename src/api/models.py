@@ -108,6 +108,7 @@ class Event(db.Model):
     description = db.Column(db.String(300), nullable=False)
     price = db.Column(db.String(300), nullable=False)
     profile_picture = db.Column(db.String(300), nullable=True)
+    photos = db.Column(db.String(300), nullable=True)
     video = db.Column(db.String(300), nullable=True)
     instagram = db.Column(db.String(300), nullable=True)
     tiktok = db.Column(db.String(300), nullable=True)
@@ -124,6 +125,7 @@ class Event(db.Model):
             'description': self.description,
             'price': self.price,
             'profile_picture': self.profile_picture,
+            'photos': self.photos,
             'video': self.video,
             'instagram': self.instagram,
             'tiktok': self.tiktok,

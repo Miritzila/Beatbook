@@ -3,25 +3,25 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
-import { LandingPage } from "./pages/landingPage"; 
-import { Inicio } from "./pages/inicio";
-import { Perfil } from "./pages/perfil";
+import { LandingPage } from "./pages/landingPage.jsx"; 
+import { Inicio } from "./pages/inicio.jsx";
+import { Perfil } from "./pages/perfil.jsx";
 
-import { Categorias } from "./pages/categorias";
-import { Eventos } from "./pages/eventos";
-import { Grupos } from "./pages/grupos";
-import { Lugares } from "./pages/lugares";
+import { Categorias } from "./pages/categorias.jsx";
+import { Eventos } from "./pages/eventos.jsx";
+import { Grupos } from "./pages/grupos.jsx";
+import { Lugares } from "./pages/lugares.jsx";
 
-import { PaginaFalsa } from "./pages/paginaFalsa";
+import { PaginaFalsa } from "./pages/paginaFalsa.jsx";
 
-import { DetalleCategoria } from "./pages/detalleCategoria";
-import { DetalleEvento } from "./pages/detalleEvento";
-import { DetalleGrupo } from "./pages/detalleGrupo";
-import { DetalleLugar } from "./pages/detalleLugar";
+import { DetalleCategoria } from "./pages/detalleCategoria.jsx";
+import { DetalleEvento } from "./pages/detalleEvento.jsx";
+import { DetalleGrupo } from "./pages/detalleGrupo.jsx";
+import { DetalleLugar } from "./pages/detalleLugar.jsx";
 
-import { CrearEvento } from "./pages/crearEvento";
-import { CrearGrupo } from "./pages/crearGrupo";
-import { CrearLugar } from "./pages/crearLugar";
+import { CrearEvento } from "./pages/crearEvento.jsx";
+import { CrearGrupo } from "./pages/crearGrupo.jsx";
+import { CrearLugar } from "./pages/crearLugar.jsx";
 
 import injectContext from "./store/appContext";
 
