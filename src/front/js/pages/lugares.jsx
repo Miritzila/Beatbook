@@ -7,7 +7,7 @@ export const Lugares = () => {
 
 	return (
 		<div className="container">
-			<h1>Esto es una prueba</h1>
+			<h1>Esto es una prueba lugares</h1>
 		</div>
 	);
 };

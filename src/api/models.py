@@ -48,7 +48,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+    password = db.Column(db.LargeBinary, nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
     description = db.Column(db.String(300), nullable=True)
     city = db.Column(db.String(100), nullable=True)

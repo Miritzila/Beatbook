@@ -8,6 +8,7 @@ export const LandingPage = () => {
 	return (
 		<div className="container">
 			<h1>Esto es una prueba</h1>
+			<p></p>
 		</div>
 	);
 };

@@ -7,7 +7,7 @@ export const Categorias = () => {
 
 	return (
 		<div className="container">
-			<h1>Esto es una prueba</h1>
+			<h1>Esto es una prueba categorias</h1>
 		</div>
 	);
 };

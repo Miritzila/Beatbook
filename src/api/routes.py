@@ -5,6 +5,11 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import Band, Event, db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import JWTManager
+import bcrypt
 
 api = Blueprint('api', __name__)
 
@@ -21,6 +26,43 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # AUTENTICATION ENDPOINTS #
+
+@api.route('/sign_up', methods=['POST'])
+def sign_up():
+    request_body = request.get_json()
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+
+    if not 'username'in request_body:
+        return jsonify("Username is required"), 400
+    if not 'email'in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password'in request_body:
+        return jsonify("Password is required"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    # Genera un token para el nuevo usuario
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+
+@api.route('/log_in', methods=['POST'])
+def log_in():
+    request_body = request.get_json()
+    if not 'email' in request_body:
+        return jsonify("Email is required"), 400
+    if not 'password' in request_body:
+        return jsonify("Password is required"), 400
+    user = User.query.filter_by(email=request_body["email"]).first()
+    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
+        return jsonify("Invalid email or password"), 400
+    # Genera un token para el usuario que inició sesión
+    access_token = create_access_token(identity=str(user.id))
+    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url ,}), 200
 
 # USER ENDPOINTS #
 

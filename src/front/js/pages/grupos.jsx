@@ -7,7 +7,7 @@ export const Grupos = () => {
 
 	return (
 		<div className="container">
-			<h1>Esto es una prueba</h1>
+			<h1>Esto es una prueba grupos</h1>
 		</div>
 	);
 };

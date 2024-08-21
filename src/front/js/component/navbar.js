@@ -1,43 +1,48 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { LoginModal } from "./LoginModal"; // Asegúrate de ajustar la ruta de importación si es necesario
 
 export const Navbar = () => {
-	return (
-		<nav className="navbar navbar-expand-lg bg-body-tertiary">
-			<div className="container-fluid">
-				<Link className="navbar-brand" to="/inicio">Navbar scroll</Link>
-				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-					<span className="navbar-toggler-icon"></span>
-				</button>
-				<div className="collapse navbar-collapse" id="navbarScroll">
-					<ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style={{ '--bs-scroll-height': '100px' }}>
-						<li className="nav-item">
-							<Link className="nav-link active" aria-current="page" to="/">Home</Link>
-						</li>
-						<li className="nav-item">
-							<Link className="nav-link" to="/link">Link</Link>
-						</li>
-						<li className="nav-item dropdown">
-							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Link
-							</a>
-							<ul className="dropdown-menu">
-								<li><Link className="dropdown-item" to="/action">Action</Link></li>
-								<li><Link className="dropdown-item" to="/another-action">Another action</Link></li>
-								<li><hr className="dropdown-divider" /></li>
-								<li><Link className="dropdown-item" to="/something-else">Something else here</Link></li>
-							</ul>
-						</li>
-						<li className="nav-item">
-							<span className="nav-link disabled" aria-disabled="true">Link</span>
-						</li>
-					</ul>
-					<form className="d-flex" role="search">
-						<input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-						<button className="btn btn-outline-success" type="submit">Search</button>
-					</form>
-				</div>
-			</div>
-		</nav>
-	);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/">
+            <img
+              src="https://res.cloudinary.com/daxbjkj1j/image/upload/v1723219062/Beatbook/pk3vv06poximcreu10oi.png"
+              alt="Brand Logo"
+              style={{ maxWidth: '150px', height: 'auto' }}
+            />
+          </a>
+          <div>
+            <a className="me-3" href="/categorias">Categorias</a>
+            <a className="me-3" href="/grupos">Grupos</a>
+            <a className="me-3" href="/lugares">Lugares</a>
+          </div>
+          <div className="dropdown">
+            <button 
+              className="btn btn-light"
+              type="button" 
+              onClick={handleButtonClick} // Maneja el clic del botón para mostrar el modal
+            >
+              <i className="fa-solid fa-user"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {showModal && (
+        <LoginModal onClose={handleCloseModal} /> // Pasar una función para cerrar el modal
+      )}
+    </>
+  );
 };
