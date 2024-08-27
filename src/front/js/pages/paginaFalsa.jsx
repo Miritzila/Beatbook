@@ -6,8 +6,8 @@ export const PaginaFalsa = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="container">
-			<h1>Esto es una prueba</h1>
+		<div className="container text-center">
+			<h1>Pagina Falsa</h1>
 		</div>
 	);
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LoginModal } from "./LoginModal"; // Asegúrate de ajustar la ruta de importación si es necesario
+import { LoginModal } from "./LoginModal";
 
 export const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,11 +14,11 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+      <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <img
-              src="https://res.cloudinary.com/daxbjkj1j/image/upload/v1723219062/Beatbook/pk3vv06poximcreu10oi.png"
+              src="https://res.cloudinary.com/daxbjkj1j/image/upload/v1724684398/ax5jxsybd5zg8vfeoxp6.png"
               alt="Brand Logo"
               style={{ maxWidth: '150px', height: 'auto' }}
             />
@@ -32,7 +32,7 @@ export const Navbar = () => {
             <button 
               className="btn btn-light"
               type="button" 
-              onClick={handleButtonClick} // Maneja el clic del botón para mostrar el modal
+              onClick={handleButtonClick}
             >
               <i className="fa-solid fa-user"></i>
             </button>
@@ -41,7 +41,7 @@ export const Navbar = () => {
       </nav>
 
       {showModal && (
-        <LoginModal onClose={handleCloseModal} /> // Pasar una función para cerrar el modal
+        <LoginModal onClose={handleCloseModal} />
       )}
     </>
   );

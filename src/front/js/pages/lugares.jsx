@@ -6,8 +6,8 @@ export const Lugares = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="container">
-			<h1>Esto es una prueba lugares</h1>
+		<div className="container text-center">
+			<h1>Lugares</h1>
 		</div>
 	);
 };

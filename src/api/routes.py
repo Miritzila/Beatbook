@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_sqlalchemy import SQLAlchemy
 from api.models import Band, Event, db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
@@ -30,39 +31,31 @@ def handle_hello():
 @api.route('/sign_up', methods=['POST'])
 def sign_up():
     request_body = request.get_json()
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
-
-    if not 'username'in request_body:
-        return jsonify("Username is required"), 400
-    if not 'email'in request_body:
-        return jsonify("Email is required"), 400
-    if not 'password'in request_body:
-        return jsonify("Password is required"), 400
-    if not 'password_confirmation'in request_body:
-        return jsonify("Password confirmation is required"), 400
     
-    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
-    db.session.add(user)
-    db.session.commit()
-    # Genera un token para el nuevo usuario
-    access_token = create_access_token(identity=str(user.id))
-
-    return jsonify({ 'message': 'User created', 'token': access_token }), 200
-
-@api.route('/log_in', methods=['POST'])
-def log_in():
-    request_body = request.get_json()
+    # Validación de campos obligatorios
     if not 'email' in request_body:
         return jsonify("Email is required"), 400
     if not 'password' in request_body:
         return jsonify("Password is required"), 400
-    user = User.query.filter_by(email=request_body["email"]).first()
-    if user is None or not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
-        return jsonify("Invalid email or password"), 400
-    # Genera un token para el usuario que inició sesión
+    if not 'password_confirmation' in request_body:
+        return jsonify("Password confirmation is required"), 400
+    
+    # Validación de contraseñas
+    if request_body['password'] != request_body['password_confirmation']:
+        return jsonify("Passwords do not match"), 400
+    
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
+
+    # Crear el nuevo usuario
+    user = User(email=request_body["email"], password=hashed_password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+
+    # Generar un token para el nuevo usuario
     access_token = create_access_token(identity=str(user.id))
-    return jsonify({ 'message': 'Logged in successfully', 'token': access_token, 'email': user.email, 'username': user.username , 'user_id': user.id, 'profileimage': user.profile_image_url ,}), 200
+
+    return jsonify({ 'message': 'User created', 'token': access_token }), 200
 
 # USER ENDPOINTS #
 

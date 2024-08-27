@@ -2,9 +2,16 @@
     General Styles used on every website (Don't Repeat Yourself)
 */
 
+@font-face {
+  font-family: 'WhiteOnBlack';
+  src: url('../../../docs/assets/WhiteOnBlack.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body::before {
     content: "";
-    background: url("https://res.cloudinary.com/daxbjkj1j/image/upload/v1720256165/kbsjz3m5xed60hzxtckr.jpg") center/cover no-repeat fixed;
+    background: url("https://res.cloudinary.com/daxbjkj1j/image/upload/v1724676950/fondo_beatbook.jpg") center/cover no-repeat fixed;
     position: fixed;
     top: 0;
     left: 0;
@@ -13,13 +20,8 @@ body::before {
     z-index: -1;
   }
   
-  body {
-    position: relative;
-    background: rgba(0, 0, 0, 0.5);
-  }
-  
   h1 {
-    font-family: 'Permanent Marker';
+    font-family: 'WhiteOnBlack';
     color: white;
     font-size: 60px;
   }
@@ -48,4 +50,9 @@ body::before {
   
   .icono {
     color: white;
+  }
+
+  label {
+    color: white;
+    font-family: monospace;
   }
