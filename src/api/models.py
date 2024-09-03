@@ -49,7 +49,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.LargeBinary, nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
-    birthdate = db.Column(db.Date, nullable=False)
+    birthdate = db.Column(db.Date, nullable=True)
     description = db.Column(db.String(300), nullable=True)
     city = db.Column(db.String(100), nullable=True)
     profile_picture = db.Column(db.String(300), nullable=True)

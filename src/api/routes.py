@@ -1,20 +1,18 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+from api.models import db, User
+from api.utils import generate_sitemap, APIException
 from flask import Flask, request, jsonify, url_for, Blueprint
 from flask_sqlalchemy import SQLAlchemy
-from api.models import Band, Event, db, User
-from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import JWTManager
 import bcrypt
 
 api = Blueprint('api', __name__)
 
-# Allow CORS requests to this API
+# CORS #
+
 CORS(api)
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -31,65 +29,53 @@ def handle_hello():
 @api.route('/sign_up', methods=['POST'])
 def sign_up():
     request_body = request.get_json()
-    
-    # Validación de campos obligatorios
-    if not 'email' in request_body:
-        return jsonify("Email is required"), 400
-    if not 'password' in request_body:
-        return jsonify("Password is required"), 400
-    if not 'password_confirmation' in request_body:
-        return jsonify("Password confirmation is required"), 400
-    
-    # Validación de contraseñas
-    if request_body['password'] != request_body['password_confirmation']:
-        return jsonify("Passwords do not match"), 400
+
+    if not 'username'in request_body:
+        return jsonify("Falta el usuario"), 400
+    if not 'email'in request_body:
+        return jsonify("Falta el email"), 400
+    if not 'password'in request_body:
+        return jsonify("Falta la contraseña"), 400
+    if not 'password_confirmation'in request_body:
+        return jsonify("Falta la confirmación de la contraseña"), 400
     
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(request_body["password"].encode('utf-8'), salt)
-
-    # Crear el nuevo usuario
-    user = User(email=request_body["email"], password=hashed_password, is_active=True)
+    
+    user = User(username=request_body["username"],email=request_body["email"], password=hashed_password, is_active=True)
     db.session.add(user)
     db.session.commit()
-
-    # Generar un token para el nuevo usuario
+    
     access_token = create_access_token(identity=str(user.id))
 
-    return jsonify({ 'message': 'User created', 'token': access_token }), 200
+    return jsonify({ 'message': 'Usuario creado', 'token': access_token }), 200
+
+@api.route('/log_in', methods=['POST'])
+def log_in():
+    request_body = request.get_json()
+    
+    if not 'email'in request_body:
+        return jsonify("Falta el email"), 400
+    if not 'password'in request_body:
+        return jsonify("Falta la contraseña"), 400
+    
+    user = User.query.filter_by(email=request_body["email"]).first()
+
+    if user is None:
+        return jsonify("Usuario no encontrado"), 404
+    
+    if not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
+        return jsonify("Contraseña incorrecta"), 400
+    
+    access_token = create_access_token(identity=str(user.id))
+    
+    return jsonify({ 'message': 'Usuario con acceso', 'token': access_token }), 200
 
 # USER ENDPOINTS #
 
 # EVENT ENDPOINTS #
 
-@api.route('/events/<int:event_id>/photos', methods=['POST'])
-def upload_event_photo(event_id):
-    event = Event.query.get(event_id)
-    if event is None:
-        return jsonify({'error': 'Evento no encontrado'}), 404
-
-    photo = request.files['photo']
-    if photo is None:
-        return jsonify({'error': 'No se ha subido ninguna foto'}), 400
-
-    # Guardar la foto en el servidor
-    photo_url = save_photo(photo) # type: ignore
-
-    # Asociar la foto con el evento
-    event.photos = photo_url
-    db.session.commit()
-
-    return jsonify({'message': 'Foto subida con éxito'}), 201
-
 # BAND ENDPOINTS #
-
-@api.route('/bands/<int:band_id>/photos', methods=['GET'])
-def get_band_photos(band_id):
-    band = Band.query.get(band_id)
-    if band is not None:
-        events = band.events
-        photos = [event.photos for event in events]
-        return jsonify({'photos': photos}), 200
-    return jsonify({'error': 'Grupo no encontrado'}), 404
 
 # PLACE ENDPOINTS #
 

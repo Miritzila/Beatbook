@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'WhiteOnBlack';
-  src: url('../../../docs/assets/WhiteOnBlack.ttf') format('truetype');
+  src: url('../../../docs/assets/WhiteOnBlack.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,7 +27,7 @@ body::before {
   }
   
   h2 {
-    font-family: 'Permanent Marker';
+    font-family: 'WhiteOnBlack';
     color: white;
     font-size: 30px;
   }
