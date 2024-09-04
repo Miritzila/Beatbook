@@ -94,18 +94,6 @@ export const LoginModal = ({ onClose }) => {
                           </div>
                           <div className="form-outline form-white mb-3">
                             <input
-                              type="email"
-                              id="typeEmailX"
-                              name="email"
-                              className="form-control"
-                              value={formData.email}
-                              onChange={handleChange}
-                              placeholder="Email"
-                            />
-                            <label className="form-label" htmlFor="typeEmailX">Email</label>
-                          </div>
-                          <div className="form-outline form-white mb-3">
-                            <input
                               type="password"
                               id="typePasswordX"
                               name="password"

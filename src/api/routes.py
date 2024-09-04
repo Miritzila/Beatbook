@@ -53,24 +53,25 @@ def sign_up():
 @api.route('/log_in', methods=['POST'])
 def log_in():
     request_body = request.get_json()
-    
-    if not 'email'in request_body:
-        return jsonify("Falta el email"), 400
+
+    if not 'username'in request_body:
+        return jsonify("Falta el usuario"), 400
     if not 'password'in request_body:
         return jsonify("Falta la contraseña"), 400
     
-    user = User.query.filter_by(email=request_body["email"]).first()
+    user = User.query.filter_by(username=request_body["username"]).first()
 
     if user is None:
         return jsonify("Usuario no encontrado"), 404
     
     if not bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
         return jsonify("Contraseña incorrecta"), 400
-    
-    access_token = create_access_token(identity=str(user.id))
-    
-    return jsonify({ 'message': 'Usuario con acceso', 'token': access_token }), 200
 
+    if bcrypt.checkpw(request_body["password"].encode('utf-8'), user.password):
+        access_token = create_access_token(identity=str(user.id))
+
+    return jsonify({ 'message': 'Usuario logeado', 'token': access_token }), 200
+    
 # USER ENDPOINTS #
 
 # EVENT ENDPOINTS #
