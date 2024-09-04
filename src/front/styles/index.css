@@ -9,50 +9,94 @@
   font-style: normal;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+}
+
 body::before {
-    content: "";
-    background: url("https://res.cloudinary.com/daxbjkj1j/image/upload/v1724676950/fondo_beatbook.jpg") center/cover no-repeat fixed;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-  
-  h1 {
-    font-family: 'WhiteOnBlack';
-    color: white;
-    font-size: 60px;
-  }
-  
-  h2 {
-    font-family: 'WhiteOnBlack';
-    color: white;
-    font-size: 30px;
-  }
-  
-  p {
-    color: white;
-    font-family: monospace;
-  }
+  content: "";
+  background: url("https://res.cloudinary.com/daxbjkj1j/image/upload/v1724676950/fondo_beatbook.jpg") center/cover no-repeat fixed;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
 
-  a {
-    font-family: monospace;
-    color: white;
-  }
-  
-  button {
-    font-family: monospace;
-    color: white;
-    font-size: 30px;
-  }
-  
-  .icono {
-    color: white;
-  }
+h1 {
+  font-family: 'WhiteOnBlack';
+  color: white;
+  font-size: 55px;
+}
 
-  label {
-    color: white;
-    font-family: monospace;
-  }
+h2 {
+  font-family: 'WhiteOnBlack';
+  color: white;
+  font-size: 45px;
+}
+
+h3 {
+  font-family: 'WhiteOnBlack';
+  color: white;
+  font-size: 35px;
+}
+
+h4 {
+  font-family: 'WhiteOnBlack';
+  color: white;
+  font-size: 25px;
+}
+
+h5 {
+  font-family: 'WhiteOnBlack';
+  color: white;
+  font-size: 15px;
+}
+
+p {
+  color: white;
+  font-family: monospace;
+}
+
+a {
+  font-family: monospace;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+button {
+  font-family: monospace;
+  color: white;
+  font-size: 30px;
+}
+
+.icono {
+  color: white;
+}
+
+label {
+  color: white;
+  font-family: monospace;
+}
+
+.sinPuntos {
+  list-style-type: none;
+}
+
+.logo {
+  height: 50px;
+  width: 200px;
+}
+
+.estilofooter {
+  background-color: rgb(12, 12, 12);
+  padding: 20px 0;
+  text-align: center;
+  margin-top: auto;
+  width: 100%;
+  position:absolute;
+  bottom:0;
+}

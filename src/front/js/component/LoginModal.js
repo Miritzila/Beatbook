@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../../styles/loginmodal.css";
 
 export const LoginModal = ({ onClose }) => {
@@ -11,6 +12,7 @@ export const LoginModal = ({ onClose }) => {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -31,7 +33,6 @@ export const LoginModal = ({ onClose }) => {
     try {
       const endpoint = isFlipped ? '/api/sign_up' : '/api/log_in';
       
-      // Ajustar el formato del cuerpo según el endpoint
       const body = isFlipped
         ? JSON.stringify({
             username: formData.username,
@@ -40,7 +41,7 @@ export const LoginModal = ({ onClose }) => {
             password_confirmation: formData.passwordConfirmation
           })
         : JSON.stringify({
-            email: formData.email,
+            username: formData.username,
             password: formData.password
           });
 
@@ -58,7 +59,14 @@ export const LoginModal = ({ onClose }) => {
       }
 
       const data = await response.json();
+
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+      }
+
       setSuccessMessage(isFlipped ? "Usuario registrado exitosamente" : "Inicio de sesión exitoso");
+      navigate('/inicio');
+
       onClose();
     } catch (error) {
       setErrorMessage(error.message);

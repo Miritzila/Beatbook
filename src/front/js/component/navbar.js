@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LoginModal } from "./LoginModal";
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
+
+  const handleLoginButtonClick = () => {
     setShowModal(true);
   };
 
@@ -23,24 +39,55 @@ export const Navbar = () => {
               style={{ maxWidth: '150px', height: 'auto' }}
             />
           </a>
-          <div>
-            <a className="me-3" href="/categorias">Categorias</a>
-            <a className="me-3" href="/grupos">Grupos</a>
-            <a className="me-3" href="/lugares">Lugares</a>
-          </div>
-          <div className="dropdown">
-            <button 
-              className="btn btn-light"
-              type="button" 
-              onClick={handleButtonClick}
-            >
-              <i className="fa-solid fa-user"></i>
-            </button>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav ms-auto">
+              {isLoggedIn ? (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/perfil">Mi Perfil</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/mis-eventos">Mis Eventos</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/configuracion">Configuración</a>
+                  </li>
+                  <li className="nav-item">
+                    <button 
+                      className="btn btn-outline-light nav-link" 
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/categorias">Categorias</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/grupos">Grupos</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/lugares">Lugares</a>
+                  </li>
+                  <li className="nav-item">
+                    <button 
+                      className="btn btn-outline-light nav-link" 
+                      onClick={handleLoginButtonClick}
+                    >
+                      Login
+                    </button>
+                  </li>
+                </>
+              )}
+            </ul>
           </div>
         </div>
       </nav>
 
-      {showModal && (
+      {showModal && !isLoggedIn && (
         <LoginModal onClose={handleCloseModal} />
       )}
     </>
