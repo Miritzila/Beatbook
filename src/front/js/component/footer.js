@@ -38,17 +38,17 @@ export const Footer = () => {
 							<div className="row">
 								<div className="col">
 									<a href="https://www.facebook.com/">
-									<i class="fa-brands fa-facebook fa-2xl"></i>
+									<i className="fa-brands fa-facebook fa-2xl"></i>
 									</a>
 								</div>
 								<div className="col">
 									<a href="https://www.twitter.com/">
-									<i class="fa-brands fa-twitter fa-2xl"></i>
+									<i className="fa-brands fa-twitter fa-2xl"></i>
 									</a>
 								</div>
 								<div className="col">
 									<a href="https://www.instagram.com/">
-									<i class="fa-brands fa-instagram fa-2xl"></i>
+									<i className="fa-brands fa-instagram fa-2xl"></i>
 									</a>
 								</div>
 							</div>
