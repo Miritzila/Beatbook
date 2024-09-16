@@ -25,7 +25,7 @@ export const LandingPage = () => {
 					<div className="card-l">
 						<img src="https://images.pexels.com/photos/4353618/pexels-photo-4353618.jpeg?auto=compress&cs=tinysrgb&w=800" className="card-img-l" alt="Comunidad" />
 						<div className="card-body">
-							<h5 className="card-title ">Llega a personas nuevas</h5>
+							<h4 className="card-title ">Llega a personas nuevas</h4>
 							<p className="card-text">Conecta con personas de tu zona que sientan pasión por la música.</p>
 						</div>
 					</div>
@@ -34,7 +34,7 @@ export const LandingPage = () => {
 					<div className="card-l">
 						<img src="https://images.pexels.com/photos/2883051/pexels-photo-2883051.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" className="card-img-l" alt="Eventos" />
 						<div className="card-body">
-							<h5 className="card-title">Una aplicación para organizar</h5>
+							<h4 className="card-title">Una aplicación para organizar</h4>
 							<p className="card-text"> Gestiona la asistencia y actualiza tus eventos.</p>
 						</div>
 					</div>
@@ -43,7 +43,7 @@ export const LandingPage = () => {
 					<div className="card-l">
 						<img src="https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg?auto=compress&cs=tinysrgb&w=800" className="card-img-l" alt="Crecimiento" />
 						<div className="card-body">
-							<h5>Crecimiento continuo</h5>
+							<h4>Crecimiento continuo</h4>
 							<p>Continuaremos impulsando la visibilidad de tu grupo en nuestra red, fomentando su crecimiento.</p>
 						</div>
 					</div>

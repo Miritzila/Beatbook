@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
+import { Context } from "../store/appContext";
 import "../../styles/loginmodal.css";
 
 export const LoginModal = ({ onClose }) => {
@@ -13,11 +14,14 @@ export const LoginModal = ({ onClose }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
+  const { actions } = useContext(Context);
 
+  // Función para cambiar entre el formulario de login y el de registro
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
   };
 
+  // Función para manejar los cambios en los inputs del formulario
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -25,51 +29,45 @@ export const LoginModal = ({ onClose }) => {
     });
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
 
     try {
-      const endpoint = isFlipped ? '/api/sign_up' : '/api/log_in';
-      
-      const body = isFlipped
-        ? JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-            password_confirmation: formData.passwordConfirmation
-          })
-        : JSON.stringify({
-            username: formData.username,
-            password: formData.password
-          });
+      let success = false;
 
-      const response = await fetch(`${process.env.BACKEND_URL}${endpoint}`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Error en la solicitud");
+      if (isFlipped) {
+        // Llamamos a la acción signUp del store
+        success = await actions.signUp(
+          formData.username,
+          formData.email,
+          formData.password,
+          formData.passwordConfirmation
+        );
+        if (success) {
+          setSuccessMessage("Usuario registrado exitosamente");
+          navigate("/inicio");
+        } else {
+          setErrorMessage("Error al registrarse");
+        }
+      } else {
+        // Llamamos a la acción login del store
+        success = await actions.login(formData.username, formData.password);
+        if (success) {
+          setSuccessMessage("Inicio de sesión exitoso");
+          navigate("/inicio");
+        } else {
+          setErrorMessage("Error en el inicio de sesión");
+        }
       }
 
-      const data = await response.json();
-
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+      if (success) {
+        onClose();
       }
-
-      setSuccessMessage(isFlipped ? "Usuario registrado exitosamente" : "Inicio de sesión exitoso");
-      navigate('/inicio');
-
-      onClose();
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage("Error en la solicitud: " + error.message);
     }
   };
 
@@ -112,25 +110,11 @@ export const LoginModal = ({ onClose }) => {
                             />
                             <label className="form-label" htmlFor="typePasswordX">Contraseña</label>
                           </div>
-                          {isFlipped && (
-                            <div className="form-outline form-white mb-3">
-                              <input
-                                type="password"
-                                id="typePasswordConfirmationX"
-                                name="passwordConfirmation"
-                                className="form-control"
-                                value={formData.passwordConfirmation}
-                                onChange={handleChange}
-                                placeholder="Confirma la contraseña"
-                              />
-                              <label className="form-label" htmlFor="typePasswordConfirmationX">Confirma la contraseña</label>
-                            </div>
-                          )}
                           <button
                             type="submit"
                             className="btn btn-outline-light btn-lg px-5"
                           >
-                            {isFlipped ? "Registrarse" : "Entrar"}
+                            Entrar
                           </button>
                         </form>
                         {errorMessage && <p className="text-danger">{errorMessage}</p>}
@@ -205,19 +189,19 @@ export const LoginModal = ({ onClose }) => {
                     )}
                     <div className="mb-0">
                       {isFlipped ? (
-                        <span>
+                        <p className="card-back">
                           ¿Ya tienes cuenta?{" "}
                           <a href="#!" onClick={handleFlip} className="text-white-50 fw-bold">
                             Entra
                           </a>
-                        </span>
+                        </p>
                       ) : (
-                        <span>
+                        <p>
                           ¿No tienes cuenta?{" "}
                           <a href="#!" onClick={handleFlip} className="text-white-50 fw-bold">
                             Regístrate
                           </a>
-                        </span>
+                        </p>
                       )}
                     </div>
                   </div>

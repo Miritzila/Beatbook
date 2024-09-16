@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Smooth Jazz Collective",
+    "description": "Una banda de jazz contemporáneo que te transporta a un viaje musical suave y relajante con sus melodías elegantes y sus arreglos sofisticados.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477258/arwzyyipyycxu8i6ddsf.jpg",
+    "instagram": "https://www.instagram.com/smoothjazzcollective",
+    "tiktok": "https://www.tiktok.com/smoothjazzcollective"
+},
+  {
+    "name": "Neon Nights Ensemble",
+    "description": "Grupo de música electrónica que fusiona elementos retro con sonidos futuristas para crear paisajes sonoros hipnóticos.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477274/rs76iqezpnr0gcet6l5n.jpg",
+    "instagram": "https://www.instagram.com/NeonNightsEnsemble",
+    "tiktok": "https://www.tiktok.com/NeonNightsEnsemble"
+  },
+  {
+    "name": "Rhythm Revolutionaries",
+    "description": "Grupo de hip hop comprometido con la justicia social, utilizando sus rimas para concienciar sobre temas políticos y sociales.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477371/bkqwthbz0gvnty1yqbeq.jpg",
+    "instagram": "https://www.instagram.com/rhythmrevolutionaries",
+    "tiktok": "https://www.tiktok.com/rhythmrevolution"
+  },
+  {
+    "name": "The Rockin' Rollers",
+    "description": "Banda de rock clásico con un toque moderno, conocida por sus potentes riffs de guitarra y letras pegajosas.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477434/e6r1erdo6jyvkyeafiu6.jpg",
+    "instagram": "https://www.instagram.com/therockinrollers",
+    "tiktok": "https://www.tiktok.com/therockinrollers"
+  },
+  {
+    "name": "Pop Sensations",
+    "description": "Grupo de pop electrónico que combina melodías pegajosas con elementos visuales futuristas en sus espectáculos en vivo.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477452/zqjhg4z7axf4gvu3ehvb.jpg",
+    "instagram": "https://www.instagram.com/popsensations",
+    "tiktok": "https://www.tiktok.com/popsensations"
+  },
+  {
+    "name": "Reggae Rhythms Collective",
+    "description": "Colectivo de músicos comprometidos con difundir el mensaje positivo del reggae a través de su música y sus letras conscientes.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477521/f4t9jq8v7mbizwxl2mmd.jpg",
+    "instagram": "https://www.instagram.com/reggaerhythmscollective",
+    "tiktok": "https://www.tiktok.com/reggaerhythmscollective"
+  },
+  {
+    "name": "Salsa Kings Orchestra",
+    "description": "Orquesta de salsa que hace honor a los ritmos latinos, con arreglos sofisticados y un ambiente festivo que hace bailar a todos.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726477903/d95i4bs94nvxlaxwiy2j.jpg",
+    "instagram": "https://www.instagram.com/salsakingsorchestra",
+    "tiktok": "https://www.tiktok.com/salsakingsorchestra"
+  },
+  {
+    "name": "R&B Soul Masters",
+    "description": "Banda de R&B que fusiona la sensualidad del soul con los ritmos pegajosos del rhythm and blues, creando una experiencia auditiva inolvidable.",
+    "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726478361/nls56k6vfsvm8yamlbg8.jpg",
+    "instagram": "https://www.instagram.com/rnbsoulmasters",
+    "tiktok": "https://www.tiktok.com/rnbsoulmasters"
+},
+{
+  "name": "Thunder Road Rebels",
+  "description": "Una banda de rock que domina el escenario con sus potentes guitarras, ritmos intensos y letras rebeldes que capturan el espíritu del rock 'n' roll.",
+  "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726478415/n6w8rzy3iacbsgzt0yjt.jpg",
+  "instagram": "https://www.instagram.com/thunderroadrebels",
+  "tiktok": "https://www.tiktok.com/thunderroadrebels"
+},
+{
+  "name": "Starlight Echoes",
+  "description": "Una banda de indie que enciende el escenario con su energía contagiosa, melodías pegajosas y letras que hablan de amor, sueños y la vida cotidiana.",
+  "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726478380/j7btv9sxctiqhww4bapm.jpg",
+  "instagram": "https://www.instagram.com/starlightechoes",
+  "tiktok": "https://www.tiktok.com/starlightechoes"
+}
+]

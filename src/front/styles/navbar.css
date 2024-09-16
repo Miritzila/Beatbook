@@ -1,0 +1,21 @@
+.navbar {
+    background-color: rgb(12, 12, 12);
+  }
+  
+  .nav-link {
+    font-family: 'WhiteOnBlack';
+    color: white;
+    font-size: 20px;
+  }
+  
+  .dropdown-menu {
+    background-color: rgb(12, 12, 12);
+  }
+  
+  .friends {
+    color: white;
+  }
+  
+  .logout {
+    color: rgb(220, 35, 66);
+  }

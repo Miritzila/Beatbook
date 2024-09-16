@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: bcadd1d52ab6
+Revision ID: 94ecb4ce9fb0
 Revises: 
-Create Date: 2024-09-04 10:50:09.918384
+Create Date: 2024-09-13 16:20:32.008424
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bcadd1d52ab6'
+revision = '94ecb4ce9fb0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,18 +21,16 @@ def upgrade():
     op.create_table('band',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=120), nullable=False),
-    sa.Column('description', sa.String(length=120), nullable=False),
-    sa.Column('profile_picture', sa.String(length=120), nullable=True),
-    sa.Column('instagram', sa.String(length=120), nullable=True),
-    sa.Column('tiktok', sa.String(length=120), nullable=True),
+    sa.Column('description', sa.String(length=300), nullable=False),
+    sa.Column('profile_picture', sa.String(length=300), nullable=True),
+    sa.Column('instagram', sa.String(length=300), nullable=True),
+    sa.Column('tiktok', sa.String(length=300), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('musical_category',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=120), nullable=False),
-    sa.Column('description', sa.String(length=300), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('place',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -45,12 +43,6 @@ def upgrade():
     sa.Column('tiktok', sa.String(length=300), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('phone')
-    )
-    op.create_table('role',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=120), nullable=False),
-    sa.Column('description', sa.String(length=300), nullable=False),
-    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -69,10 +61,11 @@ def upgrade():
     sa.UniqueConstraint('username')
     )
     op.create_table('band_members',
-    sa.Column('band_id', sa.Integer(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.Column('band_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['band_id'], ['band.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], )
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('band_id', 'user_id')
     )
     op.create_table('band_musical_category',
     sa.Column('band_id', sa.Integer(), nullable=False),
@@ -86,7 +79,7 @@ def upgrade():
     sa.Column('name', sa.String(length=120), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('description', sa.String(length=300), nullable=False),
-    sa.Column('price', sa.String(length=300), nullable=False),
+    sa.Column('price', sa.Float(), nullable=False),
     sa.Column('profile_picture', sa.String(length=300), nullable=True),
     sa.Column('photos', sa.String(length=300), nullable=True),
     sa.Column('video', sa.String(length=300), nullable=True),
@@ -126,13 +119,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'friend_id')
     )
-    op.create_table('user_roles',
-    sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('role_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['role_id'], ['role.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('user_id', 'role_id')
-    )
     op.create_table('band_events',
     sa.Column('band_id', sa.Integer(), nullable=False),
     sa.Column('event_id', sa.Integer(), nullable=False),
@@ -168,7 +154,6 @@ def downgrade():
     op.drop_table('ticket')
     op.drop_table('review')
     op.drop_table('band_events')
-    op.drop_table('user_roles')
     op.drop_table('user_friends')
     op.drop_table('user_followed_places')
     op.drop_table('user_followed_bands')
@@ -177,7 +162,6 @@ def downgrade():
     op.drop_table('band_musical_category')
     op.drop_table('band_members')
     op.drop_table('user')
-    op.drop_table('role')
     op.drop_table('place')
     op.drop_table('musical_category')
     op.drop_table('band')

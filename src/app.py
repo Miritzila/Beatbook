@@ -13,7 +13,7 @@ from flask_jwt_extended import JWTManager
 app = Flask(__name__)
 
 # Configurar JWT
-app.config["JWT_SECRET_KEY"] = "super-secret"  # Cambia esto por una clave secreta segura
+app.config["JWT_SECRET_KEY"] = "super-secret"
 jwt = JWTManager(app)
 
 # Configurar el entorno

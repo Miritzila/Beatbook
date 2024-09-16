@@ -1,80 +1,73 @@
-import React, { useState, useEffect } from "react";
-import { LoginModal } from "./LoginModal";
+import React, { useState, useContext, useEffect } from "react";
+import { LoginModal } from "./loginModal";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
+import "../../styles/navbar.css";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
   const [showModal, setShowModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
+  // Verificamos si el usuario está logueado al montar el componente
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setIsLoggedIn(true);
+      actions.checkLoginStatus();
     }
   }, []);
 
+  // Función para cerrar sesión
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
+    actions.logout();
     navigate("/");
   };
 
+  // Función para mostrar el modal
   const handleLoginButtonClick = () => {
     setShowModal(true);
   };
 
+  // Función para cerrar el modal
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+      <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <img
               src="https://res.cloudinary.com/daxbjkj1j/image/upload/v1724684398/ax5jxsybd5zg8vfeoxp6.png"
-              alt="Brand Logo"
-              style={{ maxWidth: '150px', height: 'auto' }}
+              className="logo"
+              alt="Logo"
             />
           </a>
           <div className="collapse navbar-collapse">
+            <a className="nav-link" href="/categorias">Categorias</a>
+            <a className="nav-link" href="/grupos">Grupos</a>
+            <a className="nav-link" href="/lugares">Lugares</a>
             <ul className="navbar-nav ms-auto">
-              {isLoggedIn ? (
+              {store.isLoggedIn ? ( // Verificamos si el usuario está logueado
                 <>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/perfil">Mi Perfil</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/mis-eventos">Mis Eventos</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/configuracion">Configuración</a>
-                  </li>
-                  <li className="nav-item">
-                    <button 
-                      className="btn btn-outline-light nav-link" 
-                      onClick={handleLogout}
-                    >
-                      Logout
+                  <a className="nav-link" href="/perfil">Mi Perfil</a>
+                  <a className="nav-link" href="/mis-eventos">Mis Eventos</a>
+                  <div className="dropdown">
+                    <button className="btn btn-outline-light nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {store.user.username}
                     </button>
-                  </li>
+                    <ul className="dropdown-menu dropdown-menu-end">
+                      <li><a className="dropdown-item friends">Amigos</a></li>
+                      <li><a className="dropdown-item logout" onClick={handleLogout}>Logout</a></li>
+                    </ul>
+                  </div>
                 </>
               ) : (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link" href="/categorias">Categorias</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/grupos">Grupos</a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/lugares">Lugares</a>
-                  </li>
-                  <li className="nav-item">
-                    <button 
-                      className="btn btn-outline-light nav-link" 
+                    <button
+                      className="btn btn-outline-light nav-link"
                       onClick={handleLoginButtonClick}
                     >
                       Login
@@ -87,7 +80,7 @@ export const Navbar = () => {
         </div>
       </nav>
 
-      {showModal && !isLoggedIn && (
+      {showModal && !store.isLoggedIn && ( // Mostramos el modal si no está logueado
         <LoginModal onClose={handleCloseModal} />
       )}
     </>
