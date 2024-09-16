@@ -215,6 +215,7 @@ class Review(db.Model):
 class MusicalCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
+    profile_picture = db.Column(db.String(300), nullable=True)
 
     users = db.relationship('User', secondary=user_favorite_category, back_populates='user_categories')
     bands = db.relationship('Band', secondary=band_musical_category, back_populates='musical_categories')

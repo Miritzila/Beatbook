@@ -67,7 +67,7 @@
             "description": "Un rincón del país donde la música country es ley.",
             "address": "Calle de Covarrubias, 24, Chamberí, 28010 Madrid",
             "phone": "5559012345",
-            "profile_picture": "",
+            "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726483595/wacyzu1ny4kf0eycjwkj.jpg",
             "instagram": "https://www.instagram.com/countryjunction",
             "tiktok": "https://www.tiktok.com/countryjunction"
     },
@@ -76,7 +76,7 @@
             "description": "Una sala que abraza la diversidad de la música alternativa.",
             "address": "C. Patalón, 13, 10600 Plasencia, Cáceres",
             "phone": "678950334",
-            "profile_picture": "",
+            "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726483706/ar54w7eqojiwc6hlwxop.jpg",
             "instagram": "https://www.instagram.com/alternativeunderground",
             "tiktok": "https://www.tiktok.com/alternativeunderground"
     }

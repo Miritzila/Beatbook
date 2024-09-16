@@ -2,46 +2,46 @@
     {
         "name": "Jazz",
         "description": "Un género de música que se originó en las comunidades afroamericanas de Nueva Orleans, Estados Unidos, a finales del siglo XIX y principios del XX. Surgió a partir de estilos de blues y ragtime.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625964/b900mdsxtvwje1t4hks1.jpg"
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726481907/lqpwvsigfzmsndzyjfbg.jpg"
     },
     {
         "name": "Rock",
         "description": "Un género amplio de música popular que se originó como 'rock and roll' en Estados Unidos a finales de la década de 1940 y principios de la década de 1950, desarrollándose en una variedad de estilos diferentes en la década de 1960 y posteriormente, incluyendo punk rock, rock alternativo e indie rock.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625989/fz8ogorzsdie16m1c24k.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726482583/ov1jucx0ijamclvlxrl2.jpg"
     },
     {
         "name": "Hip Hop",
         "description": "Un género de música que se originó en las comunidades afroamericanas y latinas del Bronx en la ciudad de Nueva York en la década de 1970. Se caracteriza por música rítmica acompañada de vocales de rap.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625936/qguzxzs2kewm6mwroct1.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726482598/doekq7e2li4imrqhzo0a.jpg"    
     },
     {
         "name": "Pop",
         "description": "Un género de música popular que se caracteriza por su enfoque en la melodía y la accesibilidad. Ha sido influenciado por una variedad de estilos musicales y es conocido por su apelación a un amplio público.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625970/tmoa6afskm5hfyaulq1l.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726482660/dwvnhpvfcoiitfatg9je.jpg"    
     },
     {
         "name": "Electrónica",
         "description": "Un género de música que utiliza instrumentos electrónicos y tecnología de producción para crear sonidos. Incluye subgéneros como techno, house, trance y dubstep.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625930/uhcz3eseqdpkog1jkxtl.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726482703/i48x13klsw5s0npsk30e.jpg"    
     },
     {
         "name": "Reggae",
         "description": "Un género de música originario de Jamaica que se caracteriza por su ritmo distintivo y letras sociales o políticas. Es conocido por su influencia en la cultura popular mundial.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625976/hj3h072k6l1hpquwfsik.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726482834/uh6nenhvqvmm7ebntjkd.jpg"    
     },
     {
         "name": "R&B",
         "description": "Un género de música afroamericana que combina elementos de jazz, blues y gospel. Se centra en la expresión emocional y a menudo se asocia con temas de amor y relaciones.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625982/vm0innee5uny5siqvutn.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726483358/n3wxmfgylp0xdzxamdmo.png"    
     },
     {
         "name": "Salsa",
         "description": "Un género de música y baile originario de Cuba que combina elementos de música africana, caribeña y española. Es conocido por su energía contagiosa y ritmos vibrantes.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715626001/plyoqdp1pkzxhwckgpzi.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726483462/zrmcauhgb8xac5r84xm6.jpg"    
     },
     {
         "name": "Indie",
         "description": "Un género de música que se caracteriza por su enfoque en la creatividad y la originalidad, a menudo asociado con artistas independientes y sellos discográficos. Puede abarcar una variedad de estilos musicales.",
-        "image_url": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1715625942/k7w1ab52ohffjctwfqhn.jpg"    
+        "profile_picture": "https://res.cloudinary.com/daxbjkj1j/image/upload/v1726483501/dube8fu0xyjbmugbmdty.jpg"    
     }
 ]
