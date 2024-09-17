@@ -1,5 +1,6 @@
 import datetime
 from flask_sqlalchemy import SQLAlchemy
+import bcrypt
 
 db = SQLAlchemy()
 
@@ -42,7 +43,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     is_active = db.Column(db.Boolean(), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.LargeBinary, nullable=False)
+    password = db.Column(db.String(220), nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     birthdate = db.Column(db.Date, nullable=True)
     description = db.Column(db.String(300), nullable=True)
@@ -95,7 +96,7 @@ class Event(db.Model):
     instagram = db.Column(db.String(300), nullable=True)
     tiktok = db.Column(db.String(300), nullable=True)
 
-    place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=True)
+    place_id = db.Column(db.Integer, db.ForeignKey('place.id'), nullable=False)
     band_id = db.Column(db.Integer, db.ForeignKey('band.id'), nullable=True)
     tickets = db.relationship('Ticket', backref='event_assoc', lazy=True)
     reviews = db.relationship('Review', backref='event', lazy=True)
@@ -197,7 +198,7 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     title = db.Column(db.String(120), nullable=False)
-    comment = db.Column(db.String(300), nullable=False)
+    comment = db.Column(db.String(300), nullable=True)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=True)
@@ -224,6 +225,7 @@ class MusicalCategory(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'users': [user.serialize() for user in self.users],
-            'bands': [band.serialize() for band in self.bands],
+            'profile_picture': self.profile_picture if self.profile_picture else None,
+            'users': [user.serialize() for user in self.users] if self.users else [],
+            'bands': [band.serialize() for band in self.bands] if self.bands else [],
         }
