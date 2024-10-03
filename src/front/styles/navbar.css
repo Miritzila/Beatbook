@@ -19,3 +19,11 @@
   .logout {
     color: rgb(220, 35, 66);
   }
+
+  .profile_picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+  }

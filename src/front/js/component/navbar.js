@@ -53,15 +53,18 @@ export const Navbar = () => {
                 <>
                   <a className="nav-link" href="/perfil">Mi Perfil</a>
                   <a className="nav-link" href="/mis-eventos">Mis Eventos</a>
+                
                   <div className="dropdown">
-                    <button className="btn btn-outline-light nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      {store.user.username}
+                    <button className="profile_picture" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src={store.user.profile_picture} />
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
                       <li><a className="dropdown-item friends">Amigos</a></li>
                       <li><a className="dropdown-item logout" onClick={handleLogout}>Logout</a></li>
                     </ul>
                   </div>
+                
+
                 </>
               ) : (
                 <>

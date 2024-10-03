@@ -3,19 +3,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			isLoggedIn: false,
 			user: null,
+			events: [], // Añadir 'events' al estado inicial
+			places: [], // Añadir 'places' al estado inicial
+			bands: [] // Añadir 'bands' al estado inicial
 		},
 		actions: {
 
 			// Acción para obtener un mensaje desde el backend
 			getMessage: async () => {
-				try{
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+					const data = await resp.json();
+					setStore({ message: data.message });
 					
 					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
+				} catch (error) {
+					console.log("Error loading message from backend", error);
 				}
 			},
 
@@ -28,9 +31,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							username: username,
-							email: email,
-							password: password,
+							username,
+							email,
+							password,
 							password_confirmation: passwordConfirmation
 						})
 					});
@@ -43,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						setStore({
                             isLoggedIn: true,
-                            user: { username: username }
+                            user: { username }
                         });
 
 						return true;
@@ -66,8 +69,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json"
 						},
 						body: JSON.stringify({
-							username: username,
-							password: password
+							username,
+							password
 						})
 					});
 
@@ -79,7 +82,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						setStore({
 							isLoggedIn: true,
-							user: { username: username }
+							user: { username }
 						});
 
 						return true;
@@ -113,7 +116,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 if (token && username) {
                     setStore({
                         isLoggedIn: true,
-                        user: { username: username }
+                        user: { username }
                     });
                 } else {
                     setStore({
@@ -123,6 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// Acción para obtener todos los eventos
 			getAllEvents: async () => {
 				try {
 					const resp = await fetch(process.env.BACKEND_URL + "/api/events");
@@ -132,6 +136,63 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading events from backend", error);
 				}
 			},
+
+			// Acción para obtener un evento por su ID
+			getEventById: async (id) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + `/api/events/${id}`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading event from backend", error);
+				}
+			},
+
+			// Acción para obtener todos los lugares
+			getAllPlaces: async () => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/places");
+					const data = await resp.json();
+					setStore({ places: data });
+				} catch (error) {
+					console.log("Error loading places from backend", error);
+				}
+			},
+
+			// Acción para obtener un lugar por su ID
+			getPlaceById: async (id) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + `/api/places/${id}`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading place from backend", error);
+				}
+			},
+
+			// Acción para obtener todas las bandas
+			getAllBands: async () => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
+					const data = await resp.json();
+					setStore({ bands: data });
+				} catch (error) {
+					console.log("Error loading bands from backend", error);
+				}
+			},
+
+			// Acción para obtener una banda por su ID
+			getBandById: async (id) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + `/api/bands/${id}`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading band from backend", error);
+				}
+			},
+
+			
 		}
 	};
 };

@@ -288,11 +288,54 @@ def upload_reviews():
 
 # USER ENDPOINTS #
 
+@api.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify("Usuario no encontrado"), 404
+    return jsonify(user.serialize()), 200
+
 # EVENT ENDPOINTS #
+
+@api.route('/events', methods=['GET'])
+def get_events():
+    events = Event.query.all()
+    return jsonify([event.serialize() for event in events]), 200
+
+@api.route('/events/<int:event_id>', methods=['GET'])
+def get_event(event_id):
+    event = Event.query.get(event_id)
+    if not event:
+        return jsonify("Evento no encontrado"), 404
+    return jsonify(event.serialize()), 200
 
 # BAND ENDPOINTS #
 
+@api.route('/bands', methods=['GET'])
+def get_bands():
+    bands = Band.query.all()
+    return jsonify([band.serialize() for band in bands]), 200
+
+@api.route('/bands/<int:band_id>', methods=['GET'])
+def get_band(band_id):
+    band = Band.query.get(band_id)
+    if not band:
+        return jsonify("Banda no encontrada"), 404
+    return jsonify(band.serialize()), 200
+
 # PLACE ENDPOINTS #
+
+@api.route('/places', methods=['GET'])
+def get_places():
+    places = Place.query.all()
+    return jsonify([place.serialize() for place in places]), 200
+
+@api.route('/places/<int:place_id>', methods=['GET'])
+def get_place(place_id):
+    place = Place.query.get(place_id)
+    if not place:
+        return jsonify("Lugar no encontrado"), 404
+    return jsonify(place.serialize()), 200
 
 # MUSICAL CATEGORY ENDPOINTS #
 

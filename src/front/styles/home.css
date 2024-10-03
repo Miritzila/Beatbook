@@ -5,3 +5,20 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+.carousel {
+    border-radius: 10px;
+}
+
+.c-item { 
+height: 580px;
+max-width: 100%;
+border-radius: 2%;
+}
+
+.c-img {
+height: 100%;
+object-fit: cover;
+filter: brightness(0.8);
+border-radius: 2%;
+}
