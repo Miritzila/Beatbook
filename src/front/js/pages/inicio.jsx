@@ -22,11 +22,12 @@ export const Inicio = () => {
         navigate(`/events/${id}`);
     };
 
-    // Función para obtener todos los eventos
+    // Función para obtener los datos de la API
     useEffect(() => {
         actions.getAllEvents();
         actions.getAllPlaces();
         actions.getAllBands();
+        actions.getAllmusicalCategories();
     }, [actions]);
 
     // Función para manejar el cambio de índice del carrusel

@@ -1,13 +1,31 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
+import { BentoBox } from "../component/BentoBox";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const Grupos = () => {
 	const { store, actions } = useContext(Context);
 
+	// Obtiene los grupos de la API al montar el componente
+	useEffect(() => {
+		actions.getAllBands();
+	}, [actions]);
+
+	// Redirige al grupo seleccionado
+	const handleGroupClick = (group) => {
+		window.location.href = `grupos/${group.id}`;
+	};
+
+	// Verifica si los grupos están disponibles en el store
+	if (!store.bands || store.bands.length === 0) {
+		return <div className="text-center">Cargando grupos...</div>;
+	}
+
 	return (
-		<div className="container text-center">
-			<h1>Grupos</h1>
-		</div>
+		<BentoBox
+			title="Grupos"
+			data={store.bands}
+			onClickItem={handleGroupClick}
+		/>
 	);
-};
+}

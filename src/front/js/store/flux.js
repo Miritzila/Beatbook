@@ -192,6 +192,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// Acción para obtener todas las categorías musicales
+			getAllmusicalCategories: async () => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/musical_categories");
+					const data = await resp.json();
+					setStore({ musicalCategories: data });
+				} catch (error) {
+					console.log("Error loading musical categories from backend", error);
+				}
+			}
 			
 		}
 	};

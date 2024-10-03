@@ -339,6 +339,18 @@ def get_place(place_id):
 
 # MUSICAL CATEGORY ENDPOINTS #
 
+@api.route('/musical_categories', methods=['GET'])
+def get_musical_categories():
+    musical_categories = MusicalCategory.query.all()
+    return jsonify([musical_category.serialize() for musical_category in musical_categories]), 200
+
+@api.route('/musical_categories/<int:musical_category_id>', methods=['GET'])
+def get_musical_category(musical_category_id):
+    musical_category = MusicalCategory.query.get(musical_category_id)
+    if not musical_category:
+        return jsonify("Categoría musical no encontrada"), 404
+    return jsonify(musical_category.serialize()), 200
+
 # TICKETS ENDPOINTS #
 
 # REVIEW ENDPOINTS #
