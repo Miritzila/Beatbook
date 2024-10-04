@@ -27,7 +27,6 @@ export const Inicio = () => {
         actions.getAllEvents();
         actions.getAllPlaces();
         actions.getAllBands();
-        actions.getAllmusicalCategories();
     }, [actions]);
 
     // Función para manejar el cambio de índice del carrusel

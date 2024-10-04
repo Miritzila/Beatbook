@@ -37,7 +37,7 @@ export const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/inicio">
             <img
               src="https://res.cloudinary.com/daxbjkj1j/image/upload/v1724684398/ax5jxsybd5zg8vfeoxp6.png"
               className="logo"
@@ -46,20 +46,19 @@ export const Navbar = () => {
           </a>
           <div className="collapse navbar-collapse">
             <a className="nav-link" href="/categorias">Categorias</a>
+            <a className="nav-link" href="/eventos">Eventos</a>
             <a className="nav-link" href="/grupos">Grupos</a>
             <a className="nav-link" href="/lugares">Lugares</a>
             <ul className="navbar-nav ms-auto">
               {store.isLoggedIn ? ( // Verificamos si el usuario está logueado
                 <>
                   <a className="nav-link" href="/perfil">Mi Perfil</a>
-                  <a className="nav-link" href="/mis-eventos">Mis Eventos</a>
                 
                   <div className="dropdown">
                     <button className="profile_picture" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src={store.user.profile_picture} />
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
-                      <li><a className="dropdown-item friends">Amigos</a></li>
                       <li><a className="dropdown-item logout" onClick={handleLogout}>Logout</a></li>
                     </ul>
                   </div>

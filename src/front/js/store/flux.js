@@ -3,19 +3,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			isLoggedIn: false,
 			user: null,
-			events: [], // Añadir 'events' al estado inicial
-			places: [], // Añadir 'places' al estado inicial
-			bands: [] // Añadir 'bands' al estado inicial
+			events: [],
+			places: [],
+			bands: [],
+			musicalCategories: [],
 		},
 		actions: {
-
 			// Acción para obtener un mensaje desde el backend
 			getMessage: async () => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/hello`);
 					const data = await resp.json();
 					setStore({ message: data.message });
-					
 					return data;
 				} catch (error) {
 					console.log("Error loading message from backend", error);
@@ -25,30 +24,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para registrar nuevos usuarios
 			signUp: async (username, email, password, passwordConfirmation) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/sign_up`, {
 						method: "POST",
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({
-							username,
-							email,
-							password,
-							password_confirmation: passwordConfirmation
-						})
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ username, email, password, password_confirmation: passwordConfirmation })
 					});
 
 					if (resp.ok) {
 						const data = await resp.json();
-
 						localStorage.setItem("token", data.token);
 						localStorage.setItem("username", username);
-
-						setStore({
-                            isLoggedIn: true,
-                            user: { username }
-                        });
-
+						setStore({ isLoggedIn: true, user: { username } });
 						return true;
 					} else {
 						const errorData = await resp.json();
@@ -63,28 +49,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para iniciar sesión
 			login: async (username, password) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/log_in", {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/log_in`, {
 						method: "POST",
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({
-							username,
-							password
-						})
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ username, password })
 					});
 
 					if (resp.ok) {
 						const data = await resp.json();
-
 						localStorage.setItem("token", data.token);
 						localStorage.setItem("username", username);
-
-						setStore({
-							isLoggedIn: true,
-							user: { username }
-						});
-
+						setStore({ isLoggedIn: true, user: { username } });
 						return true;
 					} else {
 						const errorData = await resp.json();
@@ -99,37 +74,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			// Acción para cerrar sesión
 			logout: () => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("username");
-
-                setStore({
-                    isLoggedIn: false,
-                    user: null
-                });
-            },
+				localStorage.removeItem("token");
+				localStorage.removeItem("username");
+				setStore({ isLoggedIn: false, user: null });
+			},
 
 			// Acción para verificar si el usuario ya está logueado al cargar la página
 			checkLoginStatus: () => {
-                const token = localStorage.getItem("token");
-                const username = localStorage.getItem("username");
-
-                if (token && username) {
-                    setStore({
-                        isLoggedIn: true,
-                        user: { username }
-                    });
-                } else {
-                    setStore({
-                        isLoggedIn: false,
-                        user: null
-                    });
-				}
+				const token = localStorage.getItem("token");
+				const username = localStorage.getItem("username");
+				setStore({ isLoggedIn: !!token, user: token ? { username } : null });
 			},
 
 			// Acción para obtener todos los eventos
 			getAllEvents: async () => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/events");
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/events`);
 					const data = await resp.json();
 					setStore({ events: data });
 				} catch (error) {
@@ -140,7 +100,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para obtener un evento por su ID
 			getEventById: async (id) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + `/api/events/${id}`);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/events/${id}`);
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -151,7 +111,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para obtener todos los lugares
 			getAllPlaces: async () => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/places");
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/places`);
 					const data = await resp.json();
 					setStore({ places: data });
 				} catch (error) {
@@ -162,7 +122,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para obtener un lugar por su ID
 			getPlaceById: async (id) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + `/api/places/${id}`);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/places/${id}`);
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -170,10 +130,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// Acción para obtener todos los eventos de un lugar
+			getPlaceByIdEvents: async (id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/places/${id}/events`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading place events from backend", error);
+				}
+			},
+
 			// Acción para obtener todas las bandas
 			getAllBands: async () => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/bands");
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands`);
 					const data = await resp.json();
 					setStore({ bands: data });
 				} catch (error) {
@@ -184,7 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para obtener una banda por su ID
 			getBandById: async (id) => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + `/api/bands/${id}`);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}`);
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -192,17 +163,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// Acción para obtener todos los eventos de una banda
+			getBandByIdEvents: async (id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}/events`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading band events from backend", error);
+				}
+			},
+
+			// Acción para obtener los miembros de una banda
+			getBandMembers: async (id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}/members`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading band members from backend", error);
+				}
+			},
+
 			// Acción para obtener todas las categorías musicales
 			getAllmusicalCategories: async () => {
 				try {
-					const resp = await fetch(process.env.BACKEND_URL + "/api/musical_categories");
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories`);
 					const data = await resp.json();
 					setStore({ musicalCategories: data });
 				} catch (error) {
 					console.log("Error loading musical categories from backend", error);
 				}
 			}
-			
 		}
 	};
 };

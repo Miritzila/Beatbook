@@ -53,7 +53,7 @@ const Layout = () => {
 
                         <Route element={<PaginaFalsa />} path="/paginafalsa" />
 
-                        <Route element={<DetalleCategoria />} path="/categorias/:id" />
+                        <Route element={<DetalleCategoria />} path="/categoriamusical/:id" />
                         <Route element={<DetalleEvento />} path="/eventos/:id" />
                         <Route element={<DetalleGrupo />} path="/grupos/:id" />
                         <Route element={<DetalleLugar />} path="/lugares/:id" />

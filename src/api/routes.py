@@ -323,6 +323,20 @@ def get_band(band_id):
         return jsonify("Banda no encontrada"), 404
     return jsonify(band.serialize()), 200
 
+@api.route('/bands/<int:band_id>/events', methods=['GET'])
+def get_band_events(band_id):
+    band = Band.query.get(band_id)
+    if not band:
+        return jsonify("Banda no encontrada"), 404
+    return jsonify([event.serialize() for event in band.events]), 200
+
+@api.route('/bands/<int:band_id>/members', methods=['GET'])
+def get_band_members(band_id):
+    band = Band.query.get(band_id)
+    if not band:
+        return jsonify("Banda no encontrada"), 404
+    return jsonify([member.serialize() for member in band.members]), 200
+
 # PLACE ENDPOINTS #
 
 @api.route('/places', methods=['GET'])
@@ -336,6 +350,13 @@ def get_place(place_id):
     if not place:
         return jsonify("Lugar no encontrado"), 404
     return jsonify(place.serialize()), 200
+
+@api.route('/places/<int:place_id>/events', methods=['GET'])
+def get_place_events(place_id):
+    place = Place.query.get(place_id)
+    if not place:
+        return jsonify("Lugar no encontrado"), 404
+    return jsonify([event.serialize() for event in place.events]), 200
 
 # MUSICAL CATEGORY ENDPOINTS #
 

@@ -13,7 +13,7 @@ export const Categorias = () => {
 
     // Redirige a la categoría seleccionada
     const handleCategoryClick = (category) => {
-        window.location.href = `categoria/${category.id}/eventos`;
+        window.location.href = `categoriamusical/${category.id}`;
     };
 
     // Verifica si las categorías están disponibles en el store
