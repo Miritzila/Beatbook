@@ -25,7 +25,7 @@ class UserModelView(ModelView):
 
 # Clase personalizada para el modelo Band
 class BandModelView(ModelView):
-    form_columns = ['name', 'description', 'followers', 'members', 'musical_categories']
+    form_columns = ['name', 'description', 'followers', 'members', 'musical_categories', 'events']
     
     column_labels = {
         'name': 'Nombre de la Banda',
@@ -33,6 +33,7 @@ class BandModelView(ModelView):
         'followers': 'Seguidores',
         'members': 'Miembros',
         'musical_categories': 'Categorías Musicales',
+        'events': 'Eventos',
     }
 
 # Clase personalizada para el modelo Event

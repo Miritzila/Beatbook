@@ -88,9 +88,6 @@ class User(db.Model):
             'instagram': self.instagram,
             'tiktok': self.tiktok,
             'friends': [friend.id for friend in self.friends],
-            'followed_bands': [band.serialize() for band in self.followed_bands],
-            'followed_places': [place.serialize() for place in self.followed_places],
-            'user_categories': [category.serialize() for category in self.user_categories],
         }
 
 # Modelo de evento
@@ -162,8 +159,6 @@ class Place(db.Model):
             'profile_picture': self.profile_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
-            'followers': [user.serialize() for user in self.followers],
-            'events': [event.serialize() for event in self.events],
         }
 
 # Modelo de banda
@@ -194,10 +189,6 @@ class Band(db.Model):
             'profile_picture': self.profile_picture,
             'instagram': self.instagram,
             'tiktok': self.tiktok,
-            'followers': [user.serialize() for user in self.followers],
-            'events': [event.serialize() for event in self.events],
-            'musical_categories': [category.serialize() for category in self.musical_categories],
-            'members': [member.serialize() for member in self.members],
         }
 
 # Modelo de ticket
@@ -264,6 +255,4 @@ class MusicalCategory(db.Model):
             'id': self.id,
             'name': self.name,
             'profile_picture': self.profile_picture if self.profile_picture else None,
-            'users': [user.serialize() for user in self.users],
-            'bands': [band.serialize() for band in self.bands],
         }
