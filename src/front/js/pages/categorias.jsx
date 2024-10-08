@@ -16,11 +16,6 @@ export const Categorias = () => {
         window.location.href = `categoriamusical/${category.id}`;
     };
 
-    // Verifica si las categorías están disponibles en el store
-    if (!store.musicalCategories || store.musicalCategories.length === 0) {
-        return <div className="text-center">Cargando categorías...</div>;
-    }
-
     return (
         <BentoBox
             title="Categorías Musicales"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { BentoBox } from "../component/BentoBox";
 import "../../styles/home.css";
 
@@ -8,8 +8,9 @@ export const DetalleCategoria = () => {
     const [events, setEvents] = useState([]);
     const [categoryName, setCategoryName] = useState("");
 
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     // Función para obtener los eventos de una categoría musical
     useEffect(() => {
@@ -50,7 +51,7 @@ export const DetalleCategoria = () => {
 
     // Redirige al evento seleccionado
     const handleEventClick = (event) => {
-        window.location.href = `eventos/${event.id}`;
+        navigate(`/eventos/${event.id}`);
     };
 
     return (

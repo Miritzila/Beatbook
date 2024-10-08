@@ -383,8 +383,7 @@ def get_musical_category_events(musical_category_id):
     for band in bands:
         events.extend(band.events)
 
-    return jsonify({"events": [event.serialize() for event in events]}), 200
-
+    return jsonify([event.serialize() for event in events]), 200
 
 # TICKETS ENDPOINTS #
 
