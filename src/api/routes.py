@@ -337,6 +337,33 @@ def get_band_members(band_id):
         return jsonify("Banda no encontrada"), 404
     return jsonify([member.serialize() for member in band.members]), 200
 
+@api.route('/bands/<int:band_id>', methods=['POST'])
+def upgrade_band(band_id):
+    request_body = request.get_json()
+
+    band = Band.query.get(band_id)
+    if not band:
+        return jsonify("Banda no encontrada"), 404
+
+    if 'name' in request_body:
+        band.name = request_body['name']
+    if 'description' in request_body:
+        band.description = request_body['description']
+    if 'profile_picture' in request_body:
+        band.profile_picture = request_body['profile_picture']
+    if 'tiktok' in request_body:
+        band.tiktok = request_body['tiktok']
+    if 'instagram' in request_body:
+        band.instagram = request_body['instagram']
+    if 'members' in request_body:
+        band.members = request_body['members']
+    if 'musical_categories' in request_body:
+        band.musical_categories = request_body['musical_categories']
+
+    db.session.commit()
+
+    return jsonify("Banda actualizada"), 200
+
 # PLACE ENDPOINTS #
 
 @api.route('/places', methods=['GET'])
@@ -371,6 +398,20 @@ def get_musical_category(musical_category_id):
     if not musical_category:
         return jsonify("Categoría musical no encontrada"), 404
     return jsonify(musical_category.serialize()), 200
+
+@api.route('/musical_categories/<int:musical_category_id>/events', methods=['GET'])
+def get_musical_category_events(musical_category_id):
+    musical_category = MusicalCategory.query.get(musical_category_id)
+    if not musical_category:
+        return jsonify({"error": "Categoría musical no encontrada"}), 404
+    
+    bands = musical_category.bands
+    events = []
+    for band in bands:
+        events.extend(band.events)
+
+    return jsonify({"events": [event.serialize() for event in events]}), 200
+
 
 # TICKETS ENDPOINTS #
 

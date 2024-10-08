@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			places: [],
 			bands: [],
 			musicalCategories: [],
+			musicalCategoryEvents: [],
 		},
 		actions: {
 			// Acción para obtener un mensaje desde el backend
@@ -194,7 +195,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error loading musical categories from backend", error);
 				}
-			}
+			},
+
+			// Acción para obtener una categoría musical por su ID
+			getMusicalCategoryById: async (id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories/${id}`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading musical category from backend", error);
+				}
+			},
+
+			// Acción para obtener todos los eventos de una categoría musical
+			getMusicalCategoryByIdEvents: async (id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories/${id}/events`);
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading musical category events from backend", error);
+				}
+			},
 		}
 	};
 };
