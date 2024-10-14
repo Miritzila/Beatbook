@@ -18,8 +18,9 @@ export const Inicio = () => {
     }, [token, navigate]);
 
     // Función para redirigir a la página de detalles del evento
-    const handleLearnMore = (id) => {
-        navigate(`/events/${id}`);
+    const handleLearnMore = (name) => {
+        const formattedName = name.trim().replace(/ /g, "_");
+        navigate(`/eventos/${formattedName}`);
     };
 
     // Función para obtener los datos de la API
@@ -47,7 +48,7 @@ export const Inicio = () => {
                         <div className="carousel-inner">
                             {store.events && store.events.map((event, idx) => (
                                 <div key={idx} className={`carousel-item ${idx === activeIndex ? 'active' : ''} c-item`}>
-                                    <a onClick={() => handleLearnMore(event.id)}>
+                                    <a onClick={() => handleLearnMore(event.name)}>
                                         <img src={event.profile_picture} className="d-block w-100 c-img" />
                                     </a>
                                     <div className="carousel-caption text-center">
@@ -81,28 +82,28 @@ export const Inicio = () => {
                 </div>
             </div>
             {/* Cards de locales */}
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col">
+            <div className="container text-center">
+                <div className="row">
+                    <div className="col">
                     </div>
-                    <div class="col">
+                    <div className="col">
                         <h3 className="text-start my-3"> Locales</h3>
                         <CarouselCard items={store.places} itemType="lugares" />
                     </div>
-                    <div class="col">
+                    <div className="col">
                     </div>
                 </div>
             </div>
             {/* Cards de grupos */}
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col">
+            <div className="container text-center">
+                <div className="row">
+                    <div className="col">
                     </div>
-                    <div class="col">
+                    <div className="col">
                         <h3 className="text-start my-3">Grupos</h3>
                         <CarouselCard items={store.bands} itemType="lugares" />
                     </div>
-                    <div class="col">
+                    <div className="col">
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ export const DetalleGrupo = () => {
     const [band, setBand] = useState(null);
     const [events, setEvents] = useState([]);
     const [members, setMembers] = useState([]);
-    const { id } = useParams();
+    const { name } = useParams();
 
     // Función para obtener los datos de un grupo
     useEffect(() => {

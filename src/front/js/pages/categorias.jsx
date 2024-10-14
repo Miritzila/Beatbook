@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { BentoBox } from "../component/BentoBox";
 import { Context } from "../store/appContext";
-import "../../styles/home.css";
 
 export const Categorias = () => {
     const { store, actions } = useContext(Context);
@@ -13,7 +12,8 @@ export const Categorias = () => {
 
     // Redirige a la categoría seleccionada
     const handleCategoryClick = (category) => {
-        window.location.href = `categoriamusical/${category.id}`;
+        const formattedName = category.name.replace(/\s+/g, '');
+        window.location.href = `categorias/${formattedName}`;
     };
 
     return (

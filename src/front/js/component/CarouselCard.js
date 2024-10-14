@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from 'react'; 
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/carouselCard.css';
 
@@ -32,9 +32,11 @@ export const CarouselCard = ({ items, itemType }) => {
   };
 
   // Función para redirigir a la página de detalles del ítem
-  const handleLearnMore = (id) => {
-    navigate(`/${itemType}/${id}`);
+  const handleLearnMore = (name) => {
+    const formattedName = name.trim().replace(/ /g, "_");
+    navigate(`/${itemType}/${formattedName}`);
   };
+
 
   return (
     <div className="wrapper">
@@ -52,12 +54,12 @@ export const CarouselCard = ({ items, itemType }) => {
             </div>
             <div className="content">
               <div className="title d-flex justify-content-center align-items-center">
-              <h4 className="name">{item.name}</h4>
+                <h4 className="name">{item.name}</h4>
               </div>
               <p className="description">{item.description}</p>
             </div>
             <div className="footer">
-              <button className="button" onClick={() => handleLearnMore(item.id)}>Saber más</button>
+              <button className="button" onClick={() => handleLearnMore(item.name)}>Saber más</button>
             </div>
           </li>
         ))}

@@ -98,10 +98,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener un evento por su ID
-			getEventById: async (id) => {
+			// Acción para obtener un evento por su nombre
+			getEventByName: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/events/${id}`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/events/${encodeURIComponent(formattedName)}`);
+					if (!resp.ok) {
+						throw new Error('Evento no encontrado');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -120,10 +124,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener un lugar por su ID
-			getPlaceById: async (id) => {
+			// Acción para obtener un lugar por su nombre
+			getPlaceByName: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/places/${id}`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/places/${encodeURIComponent(formattedName)}`);
+					if (!resp.ok) {
+						throw new Error('Lugar no encontrado');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -131,14 +139,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener todos los eventos de un lugar
-			getPlaceByIdEvents: async (id) => {
+			// Acción para obtener eventos por el nombre del lugar
+			getPlaceByNameEvents: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/places/${id}/events`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/places/${encodeURIComponent(formattedName)}/events`);
+					if (!resp.ok) {
+						throw new Error('No hay eventos para este lugar');
+					}
 					const data = await resp.json();
-					return data;
+
+					if (Array.isArray(data)) {
+						return data;
+					} else {
+						throw new Error("No hay eventos para este lugar");
+					}
 				} catch (error) {
-					console.log("Error loading place events from backend", error);
+					console.log("Error loading events from backend", error);
+					throw error;
 				}
 			},
 
@@ -153,10 +171,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener una banda por su ID
-			getBandById: async (id) => {
+			// Acción para obtener una banda por su nombre
+			getBandByName: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${encodeURIComponent(formattedName)}`);
+					if (!resp.ok) {
+						throw new Error('Banda no encontrada');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -164,10 +186,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener todos los eventos de una banda
-			getBandByIdEvents: async (id) => {
+			// Acción para obtener todos los eventos de una banda por su nombre
+			getBandByNameEvents: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}/events`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${encodeURIComponent(formattedName)}/events`);
+					if (!resp.ok) {
+						throw new Error('No hay eventos para esta banda');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -175,10 +201,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener los miembros de una banda
-			getBandMembers: async (id) => {
+			// Acción para obtener los miembros de una banda por su nombre
+			getBandMembersByName: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${id}/members`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/bands/${encodeURIComponent(formattedName)}/members`);
+					if (!resp.ok) {
+						throw new Error('No se encontraron miembros para esta banda');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -187,7 +217,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			// Acción para obtener todas las categorías musicales
-			getAllmusicalCategories: async () => {
+			getAllMusicalCategories: async () => {
 				try {
 					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories`);
 					const data = await resp.json();
@@ -197,10 +227,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			// Acción para obtener una categoría musical por su ID
-			getMusicalCategoryById: async (id) => {
+			// Acción para obtener una categoría musical por su nombre
+			getMusicalCategoryByName: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories/${id}`);
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories/${encodeURIComponent(formattedName)}`);
+					if (!resp.ok) {
+						throw new Error('Categoría musical no encontrada');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {
@@ -209,9 +243,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			// Acción para obtener todos los eventos de una categoría musical
-			getMusicalCategoryByIdEvents: async (id) => {
+			getMusicalCategoryByNameEvents: async (name) => {
 				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories/${id}/events`);
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/musical_categories/${encodeURIComponent(name)}/events`);
+					if (!resp.ok) {
+						throw new Error('No hay eventos para esta categoría musical');
+					}
 					const data = await resp.json();
 					return data;
 				} catch (error) {

@@ -13,7 +13,7 @@ export const Grupos = () => {
 
 	// Redirige al grupo seleccionado
 	const handleGroupClick = (group) => {
-		window.location.href = `grupos/${group.id}`;
+		window.location.href = `grupos/${group.name}`;
 	};
 
 	// Verifica si los grupos están disponibles en el store
