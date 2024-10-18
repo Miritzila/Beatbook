@@ -101,7 +101,7 @@ export const Inicio = () => {
                     </div>
                     <div className="col">
                         <h3 className="text-start my-3">Grupos</h3>
-                        <CarouselCard items={store.bands} itemType="lugares" />
+                        <CarouselCard items={store.bands} itemType="grupos" />
                     </div>
                     <div className="col">
                     </div>

@@ -82,6 +82,7 @@ def get_events():
 @api.route('/events/<string:event_name>', methods=['GET'])
 def get_event(event_name):
     formatted_name = unquote(event_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     event = Event.query.filter(func.lower(Event.name) == func.lower(formatted_name)).first()
     if not event:
         return jsonify("Evento no encontrado"), 404
@@ -97,6 +98,7 @@ def get_bands():
 @api.route('/bands/<string:band_name>', methods=['GET'])
 def get_band(band_name):
     formatted_name = unquote(band_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     band = Band.query.filter(func.lower(Band.name) == func.lower(formatted_name)).first()
     if not band:
         return jsonify("Banda no encontrada"), 404
@@ -105,6 +107,7 @@ def get_band(band_name):
 @api.route('/bands/<string:band_name>/events', methods=['GET'])
 def get_band_events(band_name):
     formatted_name = unquote(band_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     band = Band.query.filter(func.lower(Band.name) == func.lower(formatted_name)).first()
     if not band:
         return jsonify("Banda no encontrada"), 404
@@ -113,6 +116,7 @@ def get_band_events(band_name):
 @api.route('/bands/<string:band_name>/members', methods=['GET'])
 def get_band_members(band_name):
     formatted_name = unquote(band_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     band = Band.query.filter(func.lower(Band.name) == func.lower(formatted_name)).first()
     if not band:
         return jsonify("Banda no encontrada"), 404
@@ -128,6 +132,7 @@ def get_places():
 @api.route('/places/<string:place_name>', methods=['GET'])
 def get_place(place_name):
     formatted_name = unquote(place_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     place = Place.query.filter(func.lower(Place.name) == func.lower(formatted_name)).first()
     if not place:
         return jsonify("Lugar no encontrado"), 404
@@ -136,6 +141,7 @@ def get_place(place_name):
 @api.route('/places/<string:place_name>/events', methods=['GET'])
 def get_place_events(place_name):
     formatted_name = unquote(place_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     place = Place.query.filter(func.lower(Place.name) == func.lower(formatted_name)).first()
     if not place:
         return jsonify("Lugar no encontrado"), 404
@@ -151,6 +157,7 @@ def get_musical_categories():
 @api.route('/musical_categories/<string:musical_category_name>', methods=['GET'])
 def get_musical_category(musical_category_name):
     formatted_name = unquote(musical_category_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     musical_category = MusicalCategory.query.filter(func.lower(MusicalCategory.name) == func.lower(formatted_name)).first()
     if not musical_category:
         return jsonify("Categoría musical no encontrada"), 404
@@ -159,6 +166,7 @@ def get_musical_category(musical_category_name):
 @api.route('/musical_categories/<string:musical_category_name>/events', methods=['GET'])
 def get_musical_category_events(musical_category_name):
     formatted_name = unquote(musical_category_name.strip())
+    formatted_name = formatted_name.replace("_", " ")
     musical_category = MusicalCategory.query.filter(func.lower(MusicalCategory.name) == func.lower(formatted_name)).first()
     if not musical_category:
         return jsonify("Categoría musical no encontrada"), 404
