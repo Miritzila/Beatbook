@@ -1,10 +1,12 @@
 import React, { useEffect, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import { BentoBox } from "../component/BentoBox";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
 export const Grupos = () => {
 	const { store, actions } = useContext(Context);
+	const navigate = useNavigate();
 
 	// Obtiene los grupos de la API al montar el componente
 	useEffect(() => {
@@ -13,7 +15,11 @@ export const Grupos = () => {
 
 	// Redirige al grupo seleccionado
 	const handleGroupClick = (group) => {
-		window.location.href = `grupos/${group.id}`;
+		// Asegúrate de acceder al campo correcto dentro de `group`
+		const groupName = group.name ? group.name.trim().replace(/ /g, "_") : '';
+		
+		// Redirige al grupo seleccionado
+		navigate(`/grupo/${groupName}`);
 	};
 
 	// Verifica si los grupos están disponibles en el store
@@ -28,4 +34,4 @@ export const Grupos = () => {
 			onClickItem={handleGroupClick}
 		/>
 	);
-}
+};

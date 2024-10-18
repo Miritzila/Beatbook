@@ -4,20 +4,21 @@ import { useParams, Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const DetalleGrupo = () => {
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
     const [band, setBand] = useState(null);
     const [events, setEvents] = useState([]);
     const [members, setMembers] = useState([]);
-    const { id } = useParams();
+    const { name } = useParams();
 
     // Función para obtener los datos de un grupo
     useEffect(() => {
-        actions.getBandById(id)
+        const encodedName = encodeURIComponent(name);
+        actions.getBandByName(encodedName)
             .then((data) => {
                 if (data) {
                     setBand(data);
                 } else {
-                    console.error(`Band with ID ${id} not found`);
+                    console.error(`Band with name ${encodedName} not found`);
                     setBand(null);
                 }
             })
@@ -27,7 +28,7 @@ export const DetalleGrupo = () => {
             });
 
         // Función para obtener los eventos de un grupo
-        actions.getBandByIdEvents(id)
+        actions.getBandByNameEvents(encodedName)
             .then((data) => {
                 if (Array.isArray(data)) {
                     setEvents(data);
@@ -42,7 +43,7 @@ export const DetalleGrupo = () => {
             });
 
         // Función para obtener los miembros de un grupo
-        actions.getBandMembers(id)
+        actions.getBandMembersByName(name)
             .then((data) => {
                 if (Array.isArray(data)) {
                     setMembers(data);
@@ -55,7 +56,7 @@ export const DetalleGrupo = () => {
                 console.error("Error fetching members:", error);
                 setMembers([]);
             });
-    }, [id]);
+    }, [name]);
 
     return (
         <div className="container">
@@ -98,7 +99,7 @@ export const DetalleGrupo = () => {
                                             {members.length > 0 ? (
                                                 members.map((member, index) => (
                                                     <div key={index}>
-                                                        <Link to={`/profile/${member.id}`}>
+                                                        <Link to={`/profile/${member.name}`}>
                                                             <img
                                                                 className="avatar"
                                                                 alt={member.username}
@@ -132,8 +133,8 @@ export const DetalleGrupo = () => {
                                 {/* Card eventos */}
                                 <div className="cardContent card mb-3">
                                     {events.map((event) => (
-                                        <div key={event.id} className="position-relative">
-                                            <Link to={`/eventos/${event.id}`}>
+                                        <div key={event.name} className="position-relative">
+                                            <Link to={`/eventos/${event.name}`}>
                                                 <img
                                                     src={event.profile_picture}
                                                     className="card-img-top eventPicture"
