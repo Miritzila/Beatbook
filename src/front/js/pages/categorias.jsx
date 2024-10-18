@@ -7,7 +7,7 @@ export const Categorias = () => {
 
     // Obtiene las categorías musicales de la API al montar el componente
     useEffect(() => {
-        actions.getAllmusicalCategories();
+        actions.getAllMusicalCategories();
     }, [actions]);
 
     // Redirige a la categoría seleccionada

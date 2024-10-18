@@ -19,7 +19,7 @@ export const Grupos = () => {
 		const groupName = group.name ? group.name.trim().replace(/ /g, "_") : '';
 		
 		// Redirige al grupo seleccionado
-		navigate(`/grupo/${groupName}`);
+		navigate(`/grupos/${groupName}`);
 	};
 
 	// Verifica si los grupos están disponibles en el store
