@@ -30,9 +30,9 @@ export const DetalleCategoria = () => {
 
     // Redirige al evento seleccionado
     const handleEventClick = (event) => {
-        const formattedName = event.name.replace(/\s+/g, '');
-        navigate(`/eventos/${formattedName}`);
-    };
+		const eventName = event.name ? event.name.trim().replace(/ /g, "_") : '';
+		navigate(`/eventos/${eventName}`);
+	};
 
     return (
         <div className="container text-center">

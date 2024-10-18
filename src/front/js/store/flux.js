@@ -255,6 +255,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading musical category events from backend", error);
 				}
 			},
+
+			// Acción para obtener un evento por su nombre
+			getEventByName: async (name) => {
+				try {
+					const formattedName = name.trim();
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/events/${encodeURIComponent(formattedName)}`);
+					if (!resp.ok) {
+						throw new Error('Evento no encontrado');
+					}
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log("Error loading event from backend", error);
+				}
+			},
 		}
 	};
 };
