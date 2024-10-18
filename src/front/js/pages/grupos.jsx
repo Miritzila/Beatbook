@@ -15,10 +15,7 @@ export const Grupos = () => {
 
 	// Redirige al grupo seleccionado
 	const handleGroupClick = (group) => {
-		// Asegúrate de acceder al campo correcto dentro de `group`
 		const groupName = group.name ? group.name.trim().replace(/ /g, "_") : '';
-		
-		// Redirige al grupo seleccionado
 		navigate(`/grupos/${groupName}`);
 	};
 
