@@ -101,7 +101,7 @@ export const DetalleGrupo = () => {
                                                     <div key={index}>
                                                         <Link to={`/profile/${member.name}`}>
                                                             <img
-                                                                className="avatar"
+                                                                className="MemberPicture"
                                                                 alt={member.username}
                                                                 src={member.profile_picture}
                                                             />

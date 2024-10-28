@@ -14,6 +14,16 @@
     border-radius: 50%;
     margin-left: 5px;
   }
+
+  .MemberPicture {
+    width: 75px;
+    height: 75px;
+    max-height: 100%; 
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 5px;
+    border: 2px solid white;
+  }
   
   .cardContent {
     border-radius: 10px;
